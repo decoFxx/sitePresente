@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kauã & Marianny · 1 mês</title>
+
+<!--
+  COMO PERSONALIZAR ESTE SITE (guia rápido pro Kauã):
+
+  1) FOTOS: coloque 6 arquivos de imagem na MESMA PASTA deste arquivo,
+     nomeados exatamente:
+       foto1.jpg  foto2.jpg  foto3.jpg  foto4.jpg  foto5.jpg  foto6.jpg
+     (pode ser .png também, é só trocar a extensão no atributo src das
+     tags <img class="foto"> lá embaixo). Enquanto não existirem, aparece
+     um quadradinho decorativo no lugar — nada quebra.
+
+  2) DATA DE INÍCIO: procure por "DATA_INICIO" no <script> no fim do
+     arquivo e ajuste o dia/mês/ano/hora certinhos do namoro de vocês.
+
+  3) CARTA: procure a section com id="carta" e edite o texto à vontade.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#FFF8F4;
+    --paper:#FFFDFB;
+    --pink-soft:#F6CADD;
+    --pink-mid:#EDA1BE;
+    --pink-deep:#DD6E97;
+    --blue-soft:#BFE1F5;
+    --blue-mid:#8FC3E6;
+    --blue-deep:#4E8FC2;
+    --ink:#3B2E3A;
+    --ink-soft:#6B5A66;
+    --shadow: 0 18px 40px -18px rgba(59,46,58,0.35);
+    --radius-photo: 6px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(191,225,245,0.55), transparent 40%),
+      radial-gradient(circle at 88% 18%, rgba(246,202,221,0.55), transparent 42%),
+      var(--cream);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Playfair Display', serif;
+    margin:0;
+  }
+
+  a{color:inherit;}
+
+  ::selection{background:var(--pink-mid); color:#fff;}
+
+  :focus-visible{
+    outline:3px solid var(--blue-deep);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  section{
+    padding:96px 0;
+    position:relative;
+  }
+
+  .eyebrow-free{ /* intentionally no all-caps eyebrow labels, per design plan */ }
+
+  /* ---------- Floating petals (decorative, background) ---------- */
+  .petal-field{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+  }
+
+  .petal-fall{
+    position:absolute;
+    top:-40px;
+    will-change:transform, opacity;
+    animation-name:fall;
+    animation-timing-function:linear;
+    animation-fill-mode:forwards;
+    opacity:0.9;
+  }
+
+  @keyframes fall{
+    0%{ transform:translateY(-5vh) translateX(0) rotate(0deg); opacity:0; }
+    8%{ opacity:0.9; }
+    100%{ transform:translateY(105vh) translateX(var(--drift, 40px)) rotate(340deg); opacity:0; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 24px 80px;
+    position:relative;
+    z-index:1;
+  }
+
+  .hero-flowers{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .hero-flowers svg{
+    position:absolute;
+    animation:sway 7s ease-in-out infinite;
+  }
+  .hf-1{ top:8%; left:6%; width:70px; animation-delay:0s;}
+  .hf-2{ top:14%; right:8%; width:56px; animation-delay:1.2s;}
+  .hf-3{ bottom:10%; left:10%; width:50px; animation-delay:2.1s;}
+  .hf-4{ bottom:16%; right:12%; width:64px; animation-delay:0.6s;}
+
+  @keyframes sway{
+    0%,100%{ transform:translateY(0) rotate(-4deg);}
+    50%{ transform:translateY(-14px) rotate(4deg);}
+  }
+
+  .kicker{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    margin-bottom:18px;
+  }
+
+  .names{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:1.05;
+    font-weight:700;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.28em;
+    justify-content:center;
+  }
+  .names .kaua{ color:var(--blue-deep); }
+  .names .amp{
+    font-style:italic;
+    font-weight:500;
+    color:var(--ink-soft);
+    font-size:0.7em;
+    align-self:center;
+  }
+  .names .mari{ color:var(--pink-deep); }
+
+  .hero-sub{
+    margin-top:22px;
+    max-width:480px;
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  .counter{
+    margin-top:52px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .counter .unit{
+    background:var(--paper);
+    border-radius:16px;
+    padding:18px 22px;
+    min-width:88px;
+    box-shadow:var(--shadow);
+    border-bottom:4px solid var(--blue-soft);
+  }
+  .counter .unit:nth-child(even){ border-bottom-color:var(--pink-soft); }
+
+  .counter .num{
+    font-family:'Playfair Display', serif;
+    font-size:2rem;
+    font-weight:700;
+    display:block;
+    color:var(--ink);
+  }
+  .counter .label{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin-top:2px;
+    display:block;
+  }
+
+  .scroll-hint{
+    margin-top:64px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
+  .scroll-hint span.dot{
+    width:6px;height:6px;border-radius:50%;
+    background:linear-gradient(180deg, var(--blue-mid), var(--pink-mid));
+    animation:bob 1.6s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateY(0); opacity:0.4;}
+    50%{ transform:translateY(8px); opacity:1;}
+  }
+
+  /* ---------- Divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    color:var(--ink-soft);
+    margin:0 auto 8px;
+  }
+  .divider .line{
+    height:1px;
+    width:64px;
+    background:linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity:0.35;
+  }
+
+  .section-title{
+    text-align:center;
+    font-size:clamp(1.7rem, 3.4vw, 2.4rem);
+    font-weight:600;
+    max-width:560px;
+    margin:0 auto;
+  }
+  .section-lede{
+    text-align:center;
+    max-width:480px;
+    margin:16px auto 0;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+
+  /* ---------- Joke / treaty card ---------- */
+  .treaty{
+    max-width:640px;
+    margin:56px auto 0;
+    background:var(--paper);
+    border:2px dashed var(--pink-mid);
+    border-radius:18px;
+    padding:44px 36px;
+    position:relative;
+    box-shadow:var(--shadow);
+  }
+  .treaty::before{
+    content:"";
+    position:absolute;
+    top:-22px; left:50%;
+    transform:translateX(-50%);
+    width:56px; height:56px;
+    border-radius:50%;
+    background:conic-gradient(from 90deg, var(--blue-deep), var(--pink-deep), var(--blue-deep));
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+  }
+  .treaty h3{
+    font-size:1.5rem;
+    text-align:center;
+    margin-bottom:18px;
+    color:var(--ink);
+  }
+  .treaty p{
+    line-height:1.75;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+  }
+  .treaty .verdict-btn{
+    display:block;
+    margin:26px auto 0;
+    background:linear-gradient(120deg, var(--blue-mid), var(--pink-mid));
+    color:#fff;
+    border:none;
+    padding:12px 26px;
+    border-radius:999px;
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .treaty .verdict-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 18px -8px rgba(221,110,151,0.5); }
+
+  .verdict{
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+    text-align:center;
+    font-style:italic;
+    font-family:'Playfair Display', serif;
+    color:var(--ink);
+  }
+  .verdict.open{
+    max-height:200px;
+    opacity:1;
+    margin-top:20px;
+  }
+  .signature-line{
+    margin-top:8px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    font-style:normal;
+  }
+
+  /* ---------- Photo collage ---------- */
+  .collage{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    grid-auto-rows:120px;
+    gap:16px;
+  }
+  .frame{
+    position:relative;
+    border-radius:var(--radius-photo);
+    overflow:hidden;
+    background:var(--paper);
+    box-shadow:var(--shadow);
+    transform:rotate(var(--rot,0deg));
+    border:6px solid var(--paper);
+    outline:2px solid var(--frame-color, var(--blue-soft));
+    transition:transform 0.35s ease, z-index 0.35s ease;
+  }
+  .frame:hover, .frame:focus-within{
+    transform:rotate(0deg) scale(1.04);
+    z-index:5;
+  }
+  .frame img{
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .frame .fallback{
+    width:100%; height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--blue-soft), var(--pink-soft));
+    color:#ffffffcc;
+  }
+  .frame .fallback svg{ width:34%; opacity:0.85; }
+  .tape{
+    position:absolute;
+    top:-10px; left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:56px; height:20px;
+    background:rgba(255,255,255,0.55);
+    border:1px solid rgba(255,255,255,0.7);
+  }
+
+  .frame:nth-child(1){ grid-column:span 2; grid-row:span 2; --rot:-2deg; --frame-color:var(--blue-soft); }
+  .frame:nth-child(2){ grid-column:span 2; grid-row:span 1; --rot:2deg; --frame-color:var(--pink-soft); }
+  .frame:nth-child(3){ grid-column:span 2; grid-row:span 1; --rot:-1.5deg; --frame-color:var(--pink-soft); }
+  .frame:nth-child(4){ grid-column:span 2; grid-row:span 1; --rot:1.5deg; --frame-color:var(--blue-soft); }
+  .frame:nth-child(5){ grid-column:span 2; grid-row:span 2; --rot:2.5deg; --frame-color:var(--blue-soft); }
+  .frame:nth-child(6){ grid-column:span 2; grid-row:span 1; --rot:-2.5deg; --frame-color:var(--pink-soft); }
+
+  /* ---------- Letter / envelope ---------- */
+  .envelope-wrap{
+    max-width:520px;
+    margin:56px auto 0;
+    text-align:center;
+  }
+  .envelope{
+    width:100%;
+    max-width:340px;
+    margin:0 auto;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+  }
+  .envelope svg{ width:100%; height:auto; filter:drop-shadow(0 14px 24px rgba(59,46,58,0.22)); }
+  .envelope-hint{
+    margin-top:14px;
+    color:var(--ink-soft);
+    font-size:0.9rem;
+  }
+
+  .letter{
+    max-width:560px;
+    margin:36px auto 0;
+    background:var(--paper);
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:44px 40px;
+    text-align:left;
+    transform:rotate(-0.6deg);
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height 0.7s ease, opacity 0.6s ease, padding 0.5s ease;
+  }
+  .letter.open{
+    max-height:900px;
+    opacity:1;
+  }
+  .letter p{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1.12rem;
+    line-height:1.9;
+    color:var(--ink);
+    max-width:60ch;
+  }
+  .letter .sign{
+    margin-top:24px;
+    font-weight:600;
+    font-style:normal;
+    color:var(--blue-deep);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:64px 24px 56px;
+    text-align:center;
+    position:relative;
+    z-index:1;
+  }
+  footer .foot-line{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1.2rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:760px){
+    section{ padding:72px 0; }
+    .collage{
+      grid-template-columns:repeat(2,1fr);
+      grid-auto-rows:150px;
+    }
+    .frame:nth-child(n){ grid-column:span 1; grid-row:span 1; }
+    .frame:nth-child(1), .frame:nth-child(5){ grid-row:span 2; }
+    .treaty{ padding:34px 22px; }
+    .letter{ padding:32px 24px; }
+  }
+
+  @media (max-width:480px){
+    .names{ gap:0.18em; }
+    .counter .unit{ min-width:74px; padding:14px 14px; }
+    .counter .num{ font-size:1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    .petal-fall{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petal-field" id="petalField" aria-hidden="true"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-flowers" aria-hidden="true">
+    <svg class="hf-1" viewBox="0 0 60 60"><g fill="#8FC3E6"><circle cx="30" cy="14" r="10"/><circle cx="46" cy="30" r="10"/><circle cx="30" cy="46" r="10"/><circle cx="14" cy="30" r="10"/></g><circle cx="30" cy="30" r="9" fill="#F6CADD"/></svg>
+    <svg class="hf-2" viewBox="0 0 60 60"><g fill="#EDA1BE"><circle cx="30" cy="14" r="10"/><circle cx="46" cy="30" r="10"/><circle cx="30" cy="46" r="10"/><circle cx="14" cy="30" r="10"/></g><circle cx="30" cy="30" r="9" fill="#BFE1F5"/></svg>
+    <svg class="hf-3" viewBox="0 0 60 60"><g fill="#BFE1F5"><circle cx="30" cy="14" r="10"/><circle cx="46" cy="30" r="10"/><circle cx="30" cy="46" r="10"/><circle cx="14" cy="30" r="10"/></g><circle cx="30" cy="30" r="9" fill="#EDA1BE"/></svg>
+    <svg class="hf-4" viewBox="0 0 60 60"><g fill="#F6CADD"><circle cx="30" cy="14" r="10"/><circle cx="46" cy="30" r="10"/><circle cx="30" cy="46" r="10"/><circle cx="14" cy="30" r="10"/></g><circle cx="30" cy="30" r="9" fill="#8FC3E6"/></svg>
+  </div>
+
+  <p class="kicker">um mês de namoro</p>
+  <h1 class="names">
+    <span class="kaua">Kauã</span>
+    <span class="amp">&amp;</span>
+    <span class="mari">Marianny</span>
+  </h1>
+  <p class="hero-sub">Enfim chegou o dia para comemorarmos e lembrarmos pra sempre , os melhores 30 dias e poquinho neh , da minha vida .Fiz uma cantinho só para nós :)</p>
+
+  <div class="counter" id="counter">
+    <div class="unit"><span class="num" id="c-dias">0</span><span class="label">dias</span></div>
+    <div class="unit"><span class="num" id="c-horas">0</span><span class="label">horas</span></div>
+    <div class="unit"><span class="num" id="c-min">0</span><span class="label">minutos</span></div>
+    <div class="unit"><span class="num" id="c-seg">0</span><span class="label">segundos</span></div>
+  </div>
+
+  <div class="scroll-hint"><span class="dot"></span>role pra baixo</div>
+</section>
+
+<!-- ================= JOKE / TREATY ================= -->
+<section id="tratado">
+  <div class="wrap">
+    <div class="divider"><span class="line"></span>um assunto sério<span class="line"></span></div>
+    <h2 class="section-title">O grande impasse das cores, como vc gosta de rosa mais prefere azul coloquei as duas cores</h2>
+    <p class="section-lede">Toda relação enfrenta uma crise que testa sua força. A nossa foi essa.</p>
+
+    <div class="treaty">
+      <h3>Rosa 🩷 vs. Azul 💙</h3>
+      <p>Marianny sempre disse que gosta de rosa. Só que, quando ninguém tava olhando, confessou que no fundo prefere azul mesmo. Kauã, que só tem azul no guarda-roupa, recebeu a notícia com a discrição de quem acabou de ganhar a Copa do Mundo.</p>
+      <p>Depois de uma negociação diplomática de altíssimo nível (durou uns 4 minutos), chegou-se a um acordo de paz: o azul venceu oficialmente, mas o rosa ganhou um lugar de honra em cada cantinho desse site. Ninguém saiu perdendo. Ainda.</p>
+      <button class="verdict-btn" id="verdictBtn" aria-expanded="false" aria-controls="verdictText">ver o veredito oficial</button>
+      <div class="verdict" id="verdictText">
+        “Fica então decretado: azul é a cor oficial do casal, rosa é a cor oficial da paquera.”
+        <div class="signature-line">— assinado, o universo, dia 2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PHOTOS ================= -->
+<section id="fotos">
+  <div class="wrap">
+    <div class="divider"><span class="line"></span>registros<span class="line"></span></div>
+    <h2 class="section-title">Nosso primeiro mês em fotos</h2>
+    <p class="section-lede">Seis momentos, um mês, e a certeza de que vem muito mais por aí.</p>
+
+    <div class="collage">
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto1.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto3.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto4.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto6.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto2.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+      <figure class="frame">
+        <div class="tape" aria-hidden="true"></div>
+        <img class="foto" src="foto7.jpeg" alt="Kauã e Marianny" onerror="this.replaceWith(criarFallback())">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LETTER ================= -->
+<section id="carta">
+  <div class="wrap">
+    <div class="divider"><span class="line"></span>pra você<span class="line"></span></div>
+    <h2 class="section-title">Tem uma cartinha aqui</h2>
+
+    <div class="envelope-wrap">
+      <button class="envelope" id="envelopeBtn" aria-expanded="false" aria-controls="letterBox" aria-label="Abrir carta">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="20" width="280" height="170" rx="10" fill="#F6CADD"/>
+          <polygon points="10,20 150,120 290,20" fill="#BFE1F5" stroke="#FFFDFB" stroke-width="4"/>
+          <polygon points="10,190 110,110 10,60" fill="#EDA1BE" opacity="0.6"/>
+          <polygon points="290,190 190,110 290,60" fill="#8FC3E6" opacity="0.6"/>
+          <circle cx="150" cy="95" r="16" fill="#DD6E97"/>
+          <path d="M150 88 C147 84, 140 85, 140 91 C140 96, 150 103, 150 103 C150 103, 160 96, 160 91 C160 85, 153 84, 150 88 Z" fill="#fff"/>
+        </svg>
+      </button>
+      <p class="envelope-hint">toque no envelope pra abrir</p>
+    </div>
+
+    <article class="letter" id="letterBox">
+      <p>Faz só um mês, mas já parece que você virou parte da minha rotina de um jeito que eu nem esperava. Você foi a melhor coisa que aconteceu no meu ano , transformou completamente.</p>
+      <p>Obrigado por deixar eu fazer parte da sua vida , amo seu jeito e suas loucuras ,qnd você canta kkkkkk e amo todas as suas imperfeições,amo te ver bravinha , por isso que te irrito , fica tão linda .</p>
+      <p>Teremos um futuro enorme pela frente, você não sb o quanto oro por nós e farei de td pra dar certo. </p>
+      <p class="sign">Uma pequena demonstração do meu amor, Ass: Kauã 💙</p>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <p class="foot-line">é só o começo.</p>
+</footer>
+
+<script>
+  // ====== fallback de foto (quando o arquivo ainda não existe) ======
+  function criarFallback(){
+    var div = document.createElement('div');
+    div.className = 'fallback';
+    div.innerHTML = '<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="#ffffff"><circle cx="30" cy="16" r="9"/><circle cx="44" cy="30" r="9"/><circle cx="30" cy="44" r="9"/><circle cx="16" cy="30" r="9"/></g></svg>';
+    return div;
+  }
+
+  // ====== contador ao vivo ======
+  // AJUSTE AQUI a data/hora em que vocês começaram a namorar:
+  var DATA_INICIO = new Date(2026, 7, 2, 0, 0, 0); // mês é 0-indexado: 7 = agosto
+
+  function atualizarContador(){
+    var agora = new Date();
+    var diffMs = agora - DATA_INICIO;
+    if(diffMs < 0) diffMs = 0;
+
+    var segundosTotais = Math.floor(diffMs / 1000);
+    var dias = Math.floor(segundosTotais / 86400);
+    var horas = Math.floor((segundosTotais % 86400) / 3600);
+    var minutos = Math.floor((segundosTotais % 3600) / 60);
+    var segundos = segundosTotais % 60;
+
+    document.getElementById('c-dias').textContent = dias;
+    document.getElementById('c-horas').textContent = String(horas).padStart(2,'0');
+    document.getElementById('c-min').textContent = String(minutos).padStart(2,'0');
+    document.getElementById('c-seg').textContent = String(segundos).padStart(2,'0');
+  }
+  atualizarContador();
+  setInterval(atualizarContador, 1000);
+
+  // ====== veredito (piada) ======
+  var verdictBtn = document.getElementById('verdictBtn');
+  var verdictText = document.getElementById('verdictText');
+  verdictBtn.addEventListener('click', function(){
+    var aberto = verdictText.classList.toggle('open');
+    verdictBtn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    verdictBtn.textContent = aberto ? 'esconder veredito' : 'ver o veredito oficial';
+  });
+
+  // ====== envelope / carta ======
+  var envelopeBtn = document.getElementById('envelopeBtn');
+  var letterBox = document.getElementById('letterBox');
+  envelopeBtn.addEventListener('click', function(){
+    var aberto = letterBox.classList.toggle('open');
+    envelopeBtn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    if(aberto){ letterBox.scrollIntoView({behavior:'smooth', block:'center'}); }
+  });
+
+  // ====== pétalas caindo (uma vez, ao carregar) ======
+  (function(){
+    var reduzMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduzMovimento) return;
+
+    var campo = document.getElementById('petalField');
+    var cores = ['#EDA1BE', '#8FC3E6', '#F6CADD', '#BFE1F5'];
+    var total = 22;
+
+    for(var i=0; i<total; i++){
+      (function(i){
+        var petal = document.createElement('div');
+        petal.className = 'petal-fall';
+        var tamanho = 8 + Math.random()*10;
+        petal.style.left = (Math.random()*100) + 'vw';
+        petal.style.width = tamanho + 'px';
+        petal.style.height = (tamanho*0.8) + 'px';
+        petal.style.background = cores[i % cores.length];
+        petal.style.borderRadius = '60% 40% 60% 40%';
+        petal.style.setProperty('--drift', (Math.random()*80 - 40) + 'px');
+        var duracao = 6 + Math.random()*5;
+        var atraso = Math.random()*3.5;
+        petal.style.animationDuration = duracao + 's';
+        petal.style.animationDelay = atraso + 's';
+        campo.appendChild(petal);
+        setTimeout(function(){ petal.remove(); }, (duracao+atraso)*1000 + 500);
+      })(i);
+    }
+  })();
+</script>
+
+</body>
+</html>
